@@ -42,6 +42,7 @@ export class VerProductoComponent implements OnInit {
   precio: number = 0
   sesion: boolean = false;
   mi_resena: boolean = false;
+  loading: boolean;
 
   constructor(private ruta_activated: ActivatedRoute,
     private productos_service: ProductosService, private toastr: ToastrService,
@@ -51,6 +52,7 @@ export class VerProductoComponent implements OnInit {
     private modal_service: NgbModal,
     private router: Router,
     private comentarios_calificaciones_service: ComentariosCalificacionesService) {
+      this.loading = true;
     
     this.sesion = this.acceso_service.esta_autenticado();
     this.ruta_activated.params.subscribe(params => {
@@ -66,6 +68,7 @@ export class VerProductoComponent implements OnInit {
         }
       })
     })
+    this.loading=false;
   }
 
   ngOnInit(): void {
@@ -86,6 +89,7 @@ export class VerProductoComponent implements OnInit {
   }
 
   consultar_estilos_producto() {
+    this.loading = true;
     let nombre_estilo = this.estilos_service.consultar_estilo_producto(this.producto.caracteristicas.id_tipo);
     this.productos_service.consultar_estilos_producto(this.producto.id_producto).subscribe(
       (res: any) => {
@@ -100,6 +104,7 @@ export class VerProductoComponent implements OnInit {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
     )
+    this.loading=false;
   }
 
   consultar_especificaciones_producto() {

@@ -29,6 +29,7 @@ export class ModificarBlogComponent implements OnInit {
   productos_asociados: any[] = [];
   mis_productos: any[] = [];
   sub_form_creado:boolean = false;
+  loading: boolean;
 
   private stepper: Stepper = {} as Stepper;
   id_blog: number = 0;
@@ -38,13 +39,15 @@ export class ModificarBlogComponent implements OnInit {
   constructor(private toastr: ToastrService, private fb: FormBuilder, private router: Router,
     private categorias_service: CategoriasService, private estilos_service: EstilosService,
     private blog_service: BlogsService) {
-
+    
+    this.loading = true;
     this.router.events
       .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
       .subscribe(evento => {
         if (evento.id === 1 && evento.url === evento.urlAfterRedirects) {
           this.router.navigate(['/inicio/blogs'])
         }
+        this.loading = false;
     });
     if (this.router.getCurrentNavigation()!.extras.state) {
       this.id_blog = this.router.getCurrentNavigation()!.extras.state!.id;

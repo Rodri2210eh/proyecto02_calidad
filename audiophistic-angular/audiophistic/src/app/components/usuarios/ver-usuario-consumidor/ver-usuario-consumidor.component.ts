@@ -15,11 +15,12 @@ export class VerUsuarioConsumidorComponent implements OnInit {
   usuario: any = {
     caracteristicas: {}
   }
-
+  loading: boolean;
   caracteristicas: any = []
 
   constructor(private ruta_activated: ActivatedRoute, private usuarios_service: UsuariosService,
     private toastr: ToastrService) {
+    this.loading = true;
     this.ruta_activated.params.subscribe(params => {
       this.usuarios_service.consultar_un_usuario(params['id']).subscribe(
         (res: any) => {
@@ -34,6 +35,7 @@ export class VerUsuarioConsumidorComponent implements OnInit {
         }
       )
     })
+    this.loading = false;
   }
 
   ngOnInit(): void {

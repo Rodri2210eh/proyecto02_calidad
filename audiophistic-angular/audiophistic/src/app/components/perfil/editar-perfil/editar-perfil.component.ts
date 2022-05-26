@@ -30,7 +30,7 @@ export class EditarPerfilComponent implements OnInit {
 
   enviado: boolean = false;
   cargando: boolean = false;
-
+  loading:boolean;
 
   public provincias: Provincia[] = []
   public cantones: Canton[] = []
@@ -46,6 +46,7 @@ export class EditarPerfilComponent implements OnInit {
     private estilos_service: EstilosService,
     private toastr: ToastrService,
     private router: Router) {
+      this.loading = true;
     this.usuario_form = this.fb.group({
       nombre: ['', [Validators.required]]
     });
@@ -53,9 +54,11 @@ export class EditarPerfilComponent implements OnInit {
       contrasena: ['', [Validators.required]],
       confirmar: ['', [Validators.required]]
     });
+    this.loading=false;
   }
 
   ngOnInit(): void {
+    this.loading=true;
     this.perfil_service.consultar_mi_perfil().subscribe((res: any) => {
       if (res.body.resultado) {
         let info = res.body.resultado;
@@ -66,7 +69,7 @@ export class EditarPerfilComponent implements OnInit {
         this.usuario_form.controls['nombre'].setValue(info.nombre);
         this.construir_form(info)
       }
-
+      this.loading = false;
     });
   }
 
@@ -75,6 +78,7 @@ export class EditarPerfilComponent implements OnInit {
   get form_contrasena() { return this.contrasena_form.controls }
 
   obtener_provincias(provincia_actual: string, canton_actual: string) {
+    this.loading = true;
     this.ubicaciones_service.obtener_provincias().subscribe((res: any) => {
       let provincias = res.body;
       for (var key in provincias) {
@@ -88,6 +92,7 @@ export class EditarPerfilComponent implements OnInit {
       }
       this.obtener_cantones(this.provincia, canton_actual)
     });
+    this.loading=false;
   }
 
   obtener_cantones(event: any, canton_actual: any) {

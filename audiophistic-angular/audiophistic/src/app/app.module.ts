@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -78,6 +78,7 @@ import { ComentariosProductosComponent } from './components/comunidad/comentario
 import { EditarComentarioBlogComponent } from './components/modals/editar-comentario-blog/editar-comentario-blog.component';
 import { CreadorContenidoCardComponent } from './components/shared/creador-contenido-card/creador-contenido-card.component';
 import { ConfirmarModalComponent } from './components/modals/confirmar-modal/confirmar-modal.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { ConfirmarModalComponent } from './components/modals/confirmar-modal/con
     EditarComentarioBlogComponent,
     CreadorContenidoCardComponent,
     ConfirmarModalComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

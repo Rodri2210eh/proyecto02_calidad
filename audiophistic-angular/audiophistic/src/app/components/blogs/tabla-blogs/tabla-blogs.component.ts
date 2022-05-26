@@ -16,13 +16,16 @@ import { EliminarModalComponent } from '../../modals/eliminar-modal/eliminar-mod
 export class TablaBlogsComponent implements OnInit, OnDestroy {
 
   dtOptions: DataTables.Settings = {};
+  loading: boolean;
 
   blogs: any[] = [];
   trigger_tabla: Subject < any > = new Subject<any>();
   rol: string = ''
 
   constructor(private http: HttpClient, private blogs_service:BlogsService,
-    private modal_service: NgbModal, private toastr: ToastrService, private router: Router) { }
+    private modal_service: NgbModal, private toastr: ToastrService, private router: Router) {
+      this.loading = false;
+     }
 
   ngOnInit(): void {
     this.rol = localStorage.getItem('rol') as string
@@ -72,6 +75,7 @@ export class TablaBlogsComponent implements OnInit, OnDestroy {
   }
   
   private consultar_blogs_creador() {
+    this.loading = true;
     this.blogs_service.consultar_mis_blogs().subscribe(
       (res: any) => {
         if (res.body.error) {
@@ -80,6 +84,7 @@ export class TablaBlogsComponent implements OnInit, OnDestroy {
           this.blogs = res.body.resultado;
           this.trigger_tabla.next();
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
