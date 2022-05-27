@@ -15,11 +15,15 @@ export class VerCarritoComponent implements OnInit {
   carrito: any = {}
   precio_total: number = 0;
   precio_envio: number = precio_envio_global;
+  loading: boolean;
 
   constructor(private carrito_service: CarritoService, private toastr: ToastrService,
-    private carrito_local_service: CarritoLocalService, private router: Router) { }
+    private carrito_local_service: CarritoLocalService, private router: Router) {
+      this.loading = false;
+     }
 
   ngOnInit(): void {
+    this.loading=true;
     this.carrito_local_service.carrito_actualizado.subscribe((carrito_actual: any) => {
       this.precio_total = this.carrito_local_service.precio_total
     });
@@ -31,6 +35,7 @@ export class VerCarritoComponent implements OnInit {
           this.carrito = res.body.resultado
           this.precio_total = this.carrito_local_service.precio_total
         }
+        this.loading=false
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -38,6 +43,7 @@ export class VerCarritoComponent implements OnInit {
   }
 
   agregar(producto: any, i: number) {
+    this.loading = true;
     let cantidad = producto.cantidad;
     if (cantidad < producto.existencia)
       this.carrito.items[i].cantidad = cantidad + 1;
@@ -47,6 +53,7 @@ export class VerCarritoComponent implements OnInit {
       cantidad: cantidad + 1
     }
     this.carrito_local_service.cambiar_cantidad_carrito(producto_info);
+    this.loading=false;
   }
   quitar(producto: any, i: number) {
     let cantidad = producto.cantidad;
@@ -62,13 +69,14 @@ export class VerCarritoComponent implements OnInit {
   }
 
   eliminar_item(i: number) {
+    this.loading = true;
     let producto_info = this.carrito.items[i];
     producto_info = {
       id_producto: producto_info.id_producto,
       id_estilo: producto_info.id_estilo
     }
     this.carrito_local_service.eliminar_del_carrito(producto_info)
-
+    this.loading=false;
   }
 
   ver_producto(producto:any) {

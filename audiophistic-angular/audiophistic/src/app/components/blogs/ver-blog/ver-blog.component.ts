@@ -19,6 +19,7 @@ export class VerBlogComponent implements OnInit {
   blog: any = {}
   slides: number[] = []
   rol = localStorage.getItem('rol');
+  loading: boolean;
 
   constructor(private ruta_activated: ActivatedRoute,
     config: NgbRatingConfig,
@@ -27,6 +28,7 @@ export class VerBlogComponent implements OnInit {
     private router: Router,
     private modal_service: NgbModal,
     private comentarios_calificaciones_service: ComentariosCalificacionesService) {
+    this.loading = true;
     this.ruta_activated.params.subscribe(params => {
       this.blogs_service.consultar_un_blog(params['id']).subscribe((res: any) => {
         if (res.body.error) {
@@ -39,6 +41,7 @@ export class VerBlogComponent implements OnInit {
           }
         }
       })
+      this.loading = false;
     })
     config.max = 5;
   }
@@ -80,6 +83,7 @@ export class VerBlogComponent implements OnInit {
 
 
   ver_mi_calificacion_blog() {
+    this.loading = true;
     this.comentarios_calificaciones_service.mi_calificacion_blog(this.blog.id_blog).subscribe((res: any) => {
       if (res.body.error) {
         this.toastr.error(res.body.error, 'Error', { timeOut: 5000 });
@@ -87,6 +91,7 @@ export class VerBlogComponent implements OnInit {
         let calificacion = res.body.resultado;
         calificacion != 0 ? this.calificacion_actual = calificacion : null;
       }
+      this.loading = false;
     }, (error) => {
       this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
     })
