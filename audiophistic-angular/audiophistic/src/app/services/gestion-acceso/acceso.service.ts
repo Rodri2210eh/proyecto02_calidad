@@ -3,6 +3,12 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http'
 import { Observable, Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Options } from '@angular-slider/ngx-slider';
+//const { EncryptStorage } = require('encrypt-storage');
+import { EncryptStorage } from 'encrypt-storage';
+const encryptStorage = new EncryptStorage('secret-key', {
+  storageType: 'localStorage',
+});
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +46,9 @@ export class AccesoService {
 
   cerrar_sesion() {
     this.observador_sesion.next(false);
-    localStorage.clear()
+    encryptStorage.clear()
   }
+  
 
   confirmar_iniciar_sesion(correo: string, token: string, rol: string, nombre:string) {
     this.observador_sesion.next(true);
@@ -52,33 +59,33 @@ export class AccesoService {
   }
 
   private guardar_nombre(nombre: string) {
-    localStorage.setItem('nombre', nombre);
+    encryptStorage.setItem('nombre', nombre);
   }
 
   private guardar_correo(correo: string) {
-    localStorage.setItem('correo', correo);
+    encryptStorage.setItem('correo', correo);
   }
 
   private guardar_token(token: string) {
-    localStorage.setItem('token', token);
+    encryptStorage.setItem('token', token);
   }
 
   private guardar_rol(rol: string) {
-    localStorage.setItem('rol', rol);
+    encryptStorage.setItem('rol', rol);
   }
 
   leer_token() {
-    let token: string | null = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token');
+    let token: string | null|undefined = '';
+    if (encryptStorage.getItem('token')) {
+      token = encryptStorage.getItem('token');
     }
     return token;
   }
 
   leer_rol() {
-    let rol: string | null = '';
-    if (localStorage.getItem('rol')) {
-      rol = localStorage.getItem('rol');
+    let rol: string | null|undefined = '';
+    if (encryptStorage.getItem('rol')) {
+      rol = encryptStorage.getItem('rol');
     }
     return rol;
   }
