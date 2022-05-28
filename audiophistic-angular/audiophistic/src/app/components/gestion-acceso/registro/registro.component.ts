@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['../compartir-form.css', './registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-
+  // Declaracion de las variables para comprobar la seguridad de una contraseña
+  numeros = "0123456789";
+  letras="abcdefghyjklmnñopqrstuvwxyz";
+  letras_mayusculas="ABCDEFGHYJKLMNÑOPQRSTUVWXYZ";
+  
   registro_form: FormGroup = {} as FormGroup;
   enviado: Boolean = false;
 
@@ -48,6 +52,72 @@ export class RegistroComponent implements OnInit {
     );
 
     this.enviado = false;
+  }
+
+  tiene_numeros(texto: string){
+    for(let i=0; i<texto.length; i++){
+      if (this.numeros.indexOf(texto.charAt(i),0)!=-1){
+            return 1;
+      }
+    }
+    return 0;
+  }
+
+tiene_letras(texto:string){
+  texto = texto.toLowerCase();
+  for(let i=0; i<texto.length; i++){
+      if (this.letras.indexOf(texto.charAt(i),0)!=-1){
+        return 1;
+      }
+  }
+  return 0;
+}
+
+tiene_minusculas(texto: string){
+  for(let i=0; i<texto.length; i++){
+      if (this.letras.indexOf(texto.charAt(i),0)!=-1){
+        return 1;
+      }
+  }
+  return 0;
+}
+
+tiene_mayusculas(texto: string){
+  for(let i=0; i<texto.length; i++){
+    if (this.letras_mayusculas.indexOf(texto.charAt(i),0)!=-1){
+      return 1;
+    }
+  }
+  return 0;
+}
+
+  seguridad_clave(clave: string){
+    var seguridad = 0;
+    if (clave.length!=0){
+      if (this.tiene_numeros(clave) && this.tiene_letras(clave)){
+          seguridad += 30;
+      }
+      if (this.tiene_minusculas(clave) && this.tiene_mayusculas(clave)){
+          seguridad += 30;
+      }
+      if (clave.length >= 4 && clave.length <= 5){
+          seguridad += 10;
+      }else{
+          if (clave.length >= 6 && clave.length <= 8){
+          seguridad += 30;
+          }else{
+          if (clave.length > 8){
+              seguridad += 40;
+          }
+        }
+      }
+    }
+    return seguridad            
+  }
+
+  muestra_seguridad_clave(clave: string,formulario: { seguridad: { value: string; }; }){
+    var seguridad = this.seguridad_clave(clave);
+    formulario.seguridad.value=seguridad + "%";
   }
 
 }
