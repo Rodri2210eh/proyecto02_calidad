@@ -13,16 +13,20 @@ export class CarritoResumenComponent implements OnInit {
   sesion: boolean = false;
   carrito:any[] = []
   precio_total:number = 0
+  loading: boolean;
 
   constructor(private acceso_service: AccesoService,
     private carrito_local_service: CarritoLocalService) {
+      this.loading = false;
     }
 
   ngOnInit(): void {
+    this.loading = true;
     this.sesion = this.acceso_service.esta_autenticado();
     this.carrito_local_service.carrito_actualizado.subscribe((carrito_actual:any) => {
       this.carrito = carrito_actual.items
       this.precio_total = this.carrito_local_service.precio_total
+      this.loading = false
     });
     this.carrito_local_service.consultar_carrito_resumen()
 

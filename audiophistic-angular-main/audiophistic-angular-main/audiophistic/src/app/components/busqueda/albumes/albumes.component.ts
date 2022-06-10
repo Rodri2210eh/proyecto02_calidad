@@ -19,6 +19,7 @@ export class AlbumesComponent implements OnInit {
   termino: string = ''
   cantidad_a_traer: number = cantidad_a_traer_global;
   pagina: number = -(cantidad_a_traer_global - 1);
+  loading:boolean;
 
   min_precio: number = 0;
   max_precio: number = 0;
@@ -27,7 +28,9 @@ export class AlbumesComponent implements OnInit {
   cargar_mas: boolean = false;
 
   constructor(private productos_service: ProductosService, private toastr: ToastrService,
-    private busquedas_service: BusquedasService) { }
+    private busquedas_service: BusquedasService) {
+      this.loading = false;
+     }
 
   ngOnInit(): void {
     this.consultar_albumes();
@@ -37,6 +40,7 @@ export class AlbumesComponent implements OnInit {
   }
 
   consultar_albumes() {
+    this.loading = true;
     this.productos_service.consultar_productos_por_tipo(1).subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -45,6 +49,7 @@ export class AlbumesComponent implements OnInit {
         } else {
           this.productos = res.body.resultado;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -52,6 +57,7 @@ export class AlbumesComponent implements OnInit {
   }
 
   consultar_filtro_presentaciones() {
+    this.loading = true;
     this.busquedas_service.consultar_presentaciones_albumes().subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -60,6 +66,7 @@ export class AlbumesComponent implements OnInit {
         } else {
           this.presentaciones = res.body.resultado;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -67,6 +74,7 @@ export class AlbumesComponent implements OnInit {
   }
 
   consultar_filtro_generos() {
+    this.loading = true;
     this.busquedas_service.consultar_generos_albumes().subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -75,6 +83,7 @@ export class AlbumesComponent implements OnInit {
         } else {
           this.generos = res.body.resultado;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -138,6 +147,7 @@ export class AlbumesComponent implements OnInit {
       cantidad_a_buscar: this.cantidad_a_traer,
       pagina: this.pagina + this.cantidad_a_traer
     }
+    this.loading = true;
     this.busquedas_service.buscar_albumes(busqueda_info).subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -153,6 +163,7 @@ export class AlbumesComponent implements OnInit {
           this.productos.length < res.body.resultado.cantidad_total ? this.cargar_mas = true : this.cargar_mas = false;
           this.cargando_comentarios = false;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }

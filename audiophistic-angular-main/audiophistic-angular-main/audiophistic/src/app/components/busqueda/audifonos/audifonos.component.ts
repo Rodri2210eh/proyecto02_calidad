@@ -25,9 +25,11 @@ export class AudifonosComponent implements OnInit {
   opciones_slider: Options = opciones_slider_global;
   cargando_comentarios: boolean = false;
   cargar_mas: boolean = false;
+  loading: boolean;
 
   constructor(private productos_service: ProductosService, private toastr: ToastrService,
     private busquedas_service: BusquedasService) {
+      this.loading = false;
   }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class AudifonosComponent implements OnInit {
   }
 
   consultar_audifonos() {
+    this.loading = true;
     this.productos_service.consultar_productos_por_tipo(2).subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -46,6 +49,7 @@ export class AudifonosComponent implements OnInit {
         } else {
           this.productos = res.body.resultado;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -53,6 +57,7 @@ export class AudifonosComponent implements OnInit {
   }
 
   consultar_filtro_marcas() {
+    this.loading = true;
     this.busquedas_service.consultar_marcas_audifonos().subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -61,6 +66,7 @@ export class AudifonosComponent implements OnInit {
         } else {
           this.marcas = res.body.resultado;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -139,6 +145,7 @@ export class AudifonosComponent implements OnInit {
       cantidad_a_buscar: this.cantidad_a_traer,
       pagina: this.pagina + this.cantidad_a_traer
     }
+    this.loading = true;
     this.busquedas_service.buscar_audifonos(busqueda_info).subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -154,6 +161,7 @@ export class AudifonosComponent implements OnInit {
           this.productos.length < res.body.resultado.cantidad_total ? this.cargar_mas = true : this.cargar_mas = false;
           this.cargando_comentarios = false;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }

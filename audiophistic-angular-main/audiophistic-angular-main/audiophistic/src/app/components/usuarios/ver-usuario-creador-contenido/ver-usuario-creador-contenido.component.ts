@@ -20,10 +20,12 @@ export class VerUsuarioCreadorContenidoComponent implements OnInit {
   caracteristicas: any = []
   productos: any = []
   blogs: any = []
+  loading: boolean;
 
   constructor(private ruta_activated: ActivatedRoute, private usuarios_service: UsuariosService,
     private toastr: ToastrService, private productos_service: ProductosService,
     private blogs_service: BlogsService, private router: Router) {
+      this.loading = true;
     this.ruta_activated.params.subscribe(params => {
       this.usuarios_service.consultar_usuario_creador_contenido(params['id']).subscribe(
         (res: any) => {
@@ -40,6 +42,7 @@ export class VerUsuarioCreadorContenidoComponent implements OnInit {
         }
       )
     })
+    this.loading = false;
   }
 
   ngOnInit(): void {

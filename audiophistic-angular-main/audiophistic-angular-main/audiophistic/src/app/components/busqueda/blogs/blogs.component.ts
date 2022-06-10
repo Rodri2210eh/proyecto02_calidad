@@ -18,7 +18,7 @@ export class BlogsComponent implements OnInit {
   termino: string = ''
   cantidad_a_traer: number = cantidad_a_traer_global;
   pagina: number = -(cantidad_a_traer_global - 1);
-
+  loading: boolean;
 
   rango_fechas: Date[] = this.obtener_dias(new Date("2021-05-01"), new Date("2021-05-02"));
   min_fecha = this.rango_fechas[0].getTime();
@@ -37,6 +37,7 @@ export class BlogsComponent implements OnInit {
 
   constructor(private blogs_service: BlogsService, private toastr: ToastrService,
     private busquedas_service: BusquedasService, private categorias_service: CategoriasService) {
+      this.loading = false;
   }
 
   private obtener_dias(comienzo: Date, fin: Date) {
@@ -61,6 +62,7 @@ export class BlogsComponent implements OnInit {
   }
 
   consultar_blogs() {
+    this.loading = true;
     this.blogs_service.consultar_blogs().subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -69,6 +71,7 @@ export class BlogsComponent implements OnInit {
         } else {
           this.blogs = res.body.resultado;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -76,6 +79,7 @@ export class BlogsComponent implements OnInit {
   }
 
   consultar_filtro_categorias() {
+    this.loading = true;
     this.categorias_service.consultar_categorias_publico().subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -84,6 +88,7 @@ export class BlogsComponent implements OnInit {
         } else {
           this.categorias = res.body.resultado;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }
@@ -140,6 +145,7 @@ export class BlogsComponent implements OnInit {
       cantidad_a_buscar: this.cantidad_a_traer,
       pagina: this.pagina + this.cantidad_a_traer
     }
+    this.loading = true;
     this.busquedas_service.buscar_blogs(busqueda_info).subscribe(
       (res: any) => {
         this.toastr.clear();
@@ -155,6 +161,7 @@ export class BlogsComponent implements OnInit {
           this.blogs.length < res.body.resultado.cantidad_total ? this.cargar_mas = true : this.cargar_mas = false;
           this.cargando_blogs = false;
         }
+        this.loading = false;
       }, (error) => {
         this.toastr.error("Hubo un error al conectarse al sistema", 'Error', { timeOut: 5000 });
       }

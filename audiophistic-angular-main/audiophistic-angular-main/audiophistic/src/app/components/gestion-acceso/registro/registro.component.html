@@ -8,7 +8,7 @@
                         www.freepik.com</a>
                 </div>
             </div>
-            <form class="_form" [formGroup]="registro_form" (ngSubmit)="registrarse()">
+            <form class="_form" [formGroup]="registro_form" (ngSubmit)="registrarse()" onkeyup="muestra_seguridad_clave(this.value, this.form)">
                 <span class="_form_titulo">
                     Registrarse
                 </span>
