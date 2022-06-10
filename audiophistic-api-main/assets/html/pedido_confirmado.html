@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f3f8;
+        }
+
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table class="center"
+        style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
+          <tr>
+            <td>
+                <table class="center">
+                    <tr>
+                        <td style="text-align:center; padding-top: 80px;">
+                            <a title="Logo">
+                                <img src="https://i.ibb.co/xGdRjR7/logo.png" alt="Logo">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="center"
+                                style="margin-top: 20px; max-width:670px;background:#fff; border-radius:3px; text-align:center;box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
+
+                                <tr>
+                                    <td style="padding: 35px 35px 20px 35px; background-color: #ffffff;">
+                                        <table cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                                            <tr>
+                                                <td style="font-weight: 400; line-height: 24px; padding-top: 25px;">
+                                                    <h2
+                                                        style="font-size: 30px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;">
+                                                        ¡Pedido Confirmado! </h2>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 10px;">
+                                                    <p
+                                                        style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777;">
+                                                        Gracias por elegir Audiophistic. El proceso de entrega del
+                                                        pedido comenzará cuando
+                                                        tu pago sea confirmado. Puedes revisar la información
+                                                        del pedido a continuación.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" style="padding-top: 20px;">
+                                                    <table id="tabla_pedido" cellspacing="0" cellpadding="0" border="0"
+                                                        width="100%">
+                                                        <tr>
+                                                            <td width="50%" align="left" bgcolor="#eeeeee"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                                                                Ítems </td>
+                                                            <td width="15%" align="left" bgcolor="#eeeeee"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                                                                Cantidad
+                                                            </td>
+                                                            <td width="35%" align="left" bgcolor="#eeeeee"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                                                                Precio
+                                                            </td>
+                                                        </tr>
+                                                        %s
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" style="padding-top: 20px;">
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="75%" align="left" bgcolor="#eeeeee"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                                                                Número de Pedido # </td>
+                                                            <td width="25%" align="left" bgcolor="#eeeeee"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Subtotal </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Costo de Envío </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Impuesto </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" style="padding-top: 20px;">
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="75%" align="left"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+                                                                TOTAL </td>
+                                                            <td width="25%" align="left"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+                                                                %s </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" height="100%" valign="top" width="100%"
+                                        style="padding: 0 35px 35px 35px; background-color: #ffffff;" bgcolor="#ffffff">
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                            style="max-width:660px;">
+                                            <tr>
+                                                <td align="left" style="padding-top: 20px;">
+                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="35%" align="left" bgcolor="#eeeeee"
+                                                                style="font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                                                                Dirección </td>
+                                                            <td width="65%" align="left" bgcolor="#eeeeee"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Nombre </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Cédula </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Teléfono </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Provincia </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Cantón </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                Dirección Exacta </td>
+                                                            <td style="padding: 15px 10px 5px 10px;">
+                                                                %s </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom: 3px solid #eeeeee;">
+                                    </td>
+                                    <td style="border-bottom: 3px solid #eeeeee;"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding: 35px; background-color: #ffffff;">
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                            style="max-width:600px;">
+                                            <tr>
+                                                <td align="center"
+                                                    style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; padding: 5px 0 10px 0;">
+                                                    <img src="https://i.ibb.co/xGdRjR7/logo.png" alt="Logo" width="150">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center"
+                                                    style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 24px;">
+                                                    <p
+                                                        style="font-size: 14px; font-weight: 400; line-height: 20px; color: #777777;">
+                                                        Visita nuestra página para más información. </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
+
+
+<!--Reference: https://codepen.io/rKalways/pen/VwwQKpV
+    Reference: https://bbbootstrap.com/snippets/order-confirmation-email-template-19073214-->
