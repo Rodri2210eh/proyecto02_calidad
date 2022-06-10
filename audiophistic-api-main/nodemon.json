@@ -1,0 +1,25 @@
+{
+    "restartable": "rs",
+    "ignore": [
+        ".git",
+        "node_modules/",
+        "dist/",
+        "coverage/"
+    ],
+    "watch": [
+        "src/Controlador/*.ts",
+        "src/Modelo/*.ts",
+        "src/index.ts"
+    ],
+    "events": {
+        "restart": "kill-port 3000",
+        "crash": "kill-port 3000"
+    },
+    "execMap": {
+        "ts": "node -r ts-node/register"
+    },
+    "env": {
+        "NODE_ENV": "development"
+    },
+    "ext": "json,ts"
+}
